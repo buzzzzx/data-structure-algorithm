@@ -22,7 +22,7 @@ class Stack {
     return this.items.pop();
   }
 
-  peak() {
+  peek() {
     return this.items[this.items.length - 1];
   }
 

@@ -20,7 +20,7 @@ class Stack {
     return element;
   }
 
-  peak() {
+  peek() {
     if (this.isEmpty()) {
       return undefined;
     }
