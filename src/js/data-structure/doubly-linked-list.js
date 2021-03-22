@@ -1,14 +1,14 @@
 import LinkedList, { Node } from "./linked-list";
 import { defaultEquals } from "../utils";
 
-class DoublyNode extends Node {
+export class DoublyNode extends Node {
   constructor(element, next, prev) {
     super(element, next);
     this.prev = prev;
   }
 }
 
-class DoublyLinkedList extends LinkedList {
+export class DoublyLinkedList extends LinkedList {
   constructor(equalsFn = defaultEquals) {
     super(equalsFn);
     this.tail = undefined;

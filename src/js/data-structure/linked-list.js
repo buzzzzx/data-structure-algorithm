@@ -122,6 +122,11 @@ export default class LinkedList {
     return this.count === 0;
   }
 
+  clear() {
+    this.count = 0;
+    this.head = undefined;
+  }
+
   toString() {
     let res;
     if (!this.head) {
