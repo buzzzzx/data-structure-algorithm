@@ -5,12 +5,7 @@
  *  - getIndexNextElement(element): return the index should be inserted
  */
 import LinkedList from "./linked-list";
-import { defaultEquals } from "../utils";
-
-const Compare = {
-  LESS_THAN: -1,
-  BIGGER_THAN: 1,
-};
+import { defaultEquals, Compare } from "../utils";
 
 const defaultCompare = (a, b) => {
   if (a === b) {
