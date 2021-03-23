@@ -5,14 +5,7 @@
  *  - getIndexNextElement(element): return the index should be inserted
  */
 import LinkedList from "./linked-list";
-import { defaultEquals, Compare } from "../utils";
-
-const defaultCompare = (a, b) => {
-  if (a === b) {
-    return 0;
-  }
-  return a < b ? Compare.LESS_THAN : Compare.BIGGER_THAN;
-};
+import { defaultEquals, Compare, defaultCompare } from "../utils";
 
 export class SortedLinkedList extends LinkedList {
   constructor(equalsFn = defaultEquals, compareFn = defaultCompare) {
