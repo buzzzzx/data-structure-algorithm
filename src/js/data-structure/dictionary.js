@@ -11,9 +11,9 @@
  *  - forEach(callbackFn): 迭代字典中所有的键值对。callbackFn有两个参数：key和value。该方法可以在回调函数返回false时被中止（和Array类中的every方法相似）
  */
 
-import { defaultToString } from "../utils/index";
+import { defaultToString } from "../utils/index.js";
 
-class Dictionary {
+export class Dictionary {
   constructor(toStrFn = defaultToString) {
     this.table = {};
     this.toStrFn = toStrFn;
