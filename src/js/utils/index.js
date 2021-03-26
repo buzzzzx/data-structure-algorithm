@@ -40,3 +40,9 @@ export const initializeColor = (vertices) => {
   }
   return colors;
 };
+
+export const swap = (array, a, b) => {
+  const tmp = array[a];
+  array[a] = array[b];
+  array[b] = tmp;
+};
