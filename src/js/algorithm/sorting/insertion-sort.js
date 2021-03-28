@@ -3,7 +3,7 @@
  * Description: 要进行排序的项和前面的项进行比较，选择插入位置进行插入
  */
 
-const insertionSort = (array) => {
+export const insertionSort = (array) => {
   const { length } = array;
   for (let i = 1; i < length; i += 1) {
     let j = i;
