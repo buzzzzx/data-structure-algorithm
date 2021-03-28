@@ -5,7 +5,7 @@
  */
 import { swap } from "../../utils/index.js";
 
-const quickSort = (array) => {
+export const quickSort = (array) => {
   quick(array, 0, array.length - 1);
   return array;
 };
