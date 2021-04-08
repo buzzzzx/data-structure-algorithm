@@ -1,3 +1,4 @@
+// 牛客网
 function Power(base, exp) {
   if (equal(base, 0.0)) {
     if (exp === 0) {
@@ -39,6 +40,30 @@ function powerHelper(base, exp) {
 
 function equal(num1, num2) {
   return num1 - num2 >= -0.00000001 && num1 - num2 <= 0.00000001;
+}
+
+// LeetCode
+function myPow(x, n) {
+  if (n === 0) {
+    return 1;
+  }
+  if (n === 1) {
+    return x;
+  }
+  if (n === -1) {
+    return 1 / x;
+  }
+
+  let res;
+  if (n % 2 === 0) {
+    res = myPow(x, n / 2);
+    res *= res;
+  } else {
+    res = myPow(x, (n - 1) / 2);
+    res = res * res * x;
+  }
+
+  return res;
 }
 
 // test
