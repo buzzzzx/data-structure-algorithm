@@ -11,7 +11,7 @@ export const quickSort = (array) => {
 };
 
 const quick = (array, left, right) => {
-  if (right < left) {
+  if (right <= left) {
     return;
   }
 
