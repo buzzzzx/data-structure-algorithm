@@ -7,9 +7,14 @@
  * - extract
  * - findMinimum
  */
-import { Compare, defaultCompare } from "../utils/index.js";
+const defaultCompare = (a, b) => {
+  if (a === b) {
+    return 0;
+  }
+  return a < b ? -1 : 1;
+};
 
-export class MinHeap {
+class MinHeap {
   constructor(compareFn = defaultCompare) {
     this.compareFn = compareFn;
     this.heap = [];
@@ -29,12 +34,11 @@ export class MinHeap {
     if (this.isEmpty()) {
       return undefined;
     }
-    let removed = this.heap[0];
+    let head = this.heap[0];
     this.heap[0] = this.heap[this.heap.length - 1];
     this.heap.pop();
     this.siftDown(0);
-
-    return removed;
+    return head;
   }
 
   findMinimum() {
@@ -49,15 +53,13 @@ export class MinHeap {
 
     if (
       left < size &&
-      this.compareFn(this.heap[left], this.heap[siftIndex]) ===
-        Compare.LESS_THAN
+      this.compareFn(this.heap[left], this.heap[siftIndex]) === -1
     ) {
       siftIndex = left;
     }
     if (
       right < size &&
-      this.compareFn(this.heap[right], this.heap[siftIndex]) ===
-        Compare.LESS_THAN
+      this.compareFn(this.heap[right], this.heap[siftIndex]) === -1
     ) {
       siftIndex = right;
     }
@@ -72,11 +74,10 @@ export class MinHeap {
       return;
     }
     let siftIndex = index;
-    let parentIndex = this.getParentIndex(index);
+    let parentIndex = this.getParentIndex(siftIndex);
     while (
       siftIndex > 0 &&
-      this.compareFn(this.heap[parentIndex], this.heap[siftIndex]) ===
-        Compare.BIGGER_THAN
+      this.compareFn(this.heap[parentIndex], this.heap[siftIndex]) === 1
     ) {
       this.swap(this.heap, parentIndex, siftIndex);
       siftIndex = parentIndex;
@@ -116,13 +117,58 @@ export class MinHeap {
   }
 }
 
-// test
-const heap = new MinHeap();
-heap.insert(4);
-heap.insert(3);
-heap.insert(2);
-heap.insert(5);
-console.log(heap.findMinimum());
-console.log(heap.heap);
-console.log(heap.extract());
-console.log(heap.heap);
+/**
+ * initialize your data structure here.
+ */
+const MedianFinder = function () {
+  this.minHeap = new MinHeap();
+  this.maxHeap = new MinHeap((a, b) => defaultCompare(b, a));
+};
+
+/**
+ * @param {number} num
+ * @return {void}
+ */
+MedianFinder.prototype.addNum = function (num) {
+  if (this.minHeap.size() === this.maxHeap.size()) {
+    this.maxHeap.insert(num);
+    this.minHeap.insert(this.maxHeap.extract());
+  } else {
+    this.minHeap.insert(num);
+    this.maxHeap.insert(this.minHeap.extract());
+  }
+};
+
+/**
+ * @return {number}
+ */
+MedianFinder.prototype.findMedian = function () {
+  if (this.minHeap.size() === this.maxHeap.size()) {
+    return (this.minHeap.findMinimum() + this.maxHeap.findMinimum()) / 2;
+  } else {
+    return this.minHeap.findMinimum();
+  }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * var obj = new MedianFinder()
+ * obj.addNum(num)
+ * var param_2 = obj.findMedian()
+ */
+
+const obj = new MedianFinder();
+obj.addNum(1);
+obj.addNum(2);
+obj.addNum(3);
+obj.addNum(4);
+obj.addNum(5);
+obj.addNum(6);
+obj.addNum(7);
+console.log(obj.findMedian());
+obj.addNum(8);
+console.log(obj.findMedian());
+obj.addNum(9);
+console.log(obj.findMedian());
+obj.addNum(10);
+console.log(obj.findMedian());
