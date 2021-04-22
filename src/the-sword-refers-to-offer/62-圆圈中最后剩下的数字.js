@@ -3,7 +3,14 @@
  * @param {number} m
  * @return {number}
  */
-const lastRemaining = function (n, m) {};
+const lastRemaining = function (n, m) {
+  let num = 0;
+  for (let cnt = 2; cnt <= n; cnt += 1) {
+    num = (num + m) % cnt;
+  }
+
+  return num;
+};
 
 // 模拟法过不了会超时，我个蠢货
 const lastRemaining1 = function (n, m) {
