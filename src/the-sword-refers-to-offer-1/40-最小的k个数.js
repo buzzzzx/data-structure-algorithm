@@ -8,13 +8,17 @@ const getLeastNumbers = function (arr, k) {
     return [];
   }
 
+  if (arr.length === k) {
+    return arr;
+  }
+
   return helper(arr, 0, arr.length - 1, k);
 };
 
 const helper = function (arr, low, high, k) {
   const pivot = partition(arr, low, high);
   if (pivot === k) {
-    return arr.slice(low, pivot);
+    return arr.slice(0, pivot);
   } else if (pivot < k) {
     return helper(arr, pivot + 1, high, k);
   } else {
