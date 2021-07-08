@@ -6,10 +6,28 @@ const pacificAtlantic = function (heights) {
   const rows = heights.length;
   const cols = heights[0].length;
   const res = [];
+  const pacific = [];
+  const atlantic = [];
+  for (let i = 0; i < rows; i += 1) {
+    pacific[i] = [];
+    atlantic[i] = [];
+    for (let j = 0; j < cols; j += 1) {
+      pacific[i][j] = false;
+      atlantic[i][j] = false;
+    }
+  }
 
   for (let i = 0; i < rows; i += 1) {
+    dfs(heights, pacific, i, 0);
+    dfs(heights, atlantic, i, cols - 1);
+  }
+  for (let j = 0; j < cols; j += 1) {
+    dfs(heights, pacific, 0, j);
+    dfs(heights, atlantic, rows - 1, j);
+  }
+  for (let i = 0; i < rows; i += 1) {
     for (let j = 0; j < cols; j += 1) {
-      if (dfs(heights, i, j, false, false)) {
+      if (pacific[i][j] && atlantic[i][j]) {
         res.push([i, j]);
       }
     }
@@ -18,30 +36,27 @@ const pacificAtlantic = function (heights) {
   return res;
 };
 
-const dfs = function (heights, i, j, tmpPacific, tmpAtlantic) {
+const dfs = function (heights, ocean, i, j) {
+  if (ocean[i][j]) {
+    return;
+  }
+  ocean[i][j] = true;
   const height = heights[i][j];
 
-  tmpPacific |= i === 0 || j === 0;
-  if (!tmpPacific && i - 1 >= 0 && heights[i - 1][j] <= height) {
-    tmpPacific |= dfs(heights, i - 1, j, tmpPacific, tmpAtlantic);
+  const directions = [-1, 0, 1, 0, -1];
+  for (let m = 0; m < 4; m += 1) {
+    let x = i + directions[m];
+    let y = j + directions[m + 1];
+    if (
+      x >= 0 &&
+      x < heights.length &&
+      y >= 0 &&
+      y < heights[0].length &&
+      heights[x][y] >= height
+    ) {
+      dfs(heights, ocean, x, y);
+    }
   }
-  if (!tmpPacific && j - 1 >= 0 && heights[j - 1][j] <= height) {
-    tmpPacific |= dfs(heights, i, j - 1, tmpPacific, tmpAtlantic);
-  }
-
-  tmpAtlantic |= i === heights.length - 1 || j === heights[0].length - 1;
-  if (!tmpAtlantic && i + 1 < heights.length && heights[i + 1][j] <= height) {
-    tmpAtlantic |= dfs(heights, i + 1, j, tmpPacific, tmpAtlantic);
-  }
-  if (
-    !tmpAtlantic &&
-    j + 1 < heights[0].length &&
-    heights[i][j + 1] <= height
-  ) {
-    tmpAtlantic |= dfs(heights, i, j + 1, tmpPacific, tmpAtlantic);
-  }
-
-  return tmpPacific && tmpAtlantic;
 };
 
 console.log(
