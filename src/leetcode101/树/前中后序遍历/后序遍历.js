@@ -31,4 +31,32 @@ const postOrderTraverse = function (root) {
  * @param {TreeNode} root
  * @return {number[]}
  */
-const postOrderTraverse1 = function (root) {};
+const postOrderTraverse1 = function (root) {
+  if (root == null) {
+    return [];
+  }
+
+  const res = [];
+  const stack = [];
+  let lastNode = null;
+  stack.push(root);
+  while (stack.length !== 0) {
+    let node = stack[stack.length - 1];
+    while (node.left) {
+      stack.push(node.left);
+      node = node.left;
+    }
+    while (stack.length !== 0) {
+      let node = stack[stack.length - 1];
+      if (node.right == null || lastNode === node.right) {
+        const node = stack.pop();
+        res.push(node.val);
+        lastNode = node;
+      } else if (node.right) {
+        stack.push(node.right);
+        break;
+      }
+    }
+  }
+  return res;
+};

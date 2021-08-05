@@ -32,7 +32,7 @@ const inOrderTraverse = function (root) {
  * @return {number[]}
  */
 const inOrderTraverse1 = function (root) {
-  if (root) {
+  if (root == null) {
     return [];
   }
 
@@ -40,6 +40,20 @@ const inOrderTraverse1 = function (root) {
   const stack = [];
   stack.push(root);
   while (stack.length !== 0) {
-    const node = stack[stack.length - 1];
+    let node = stack[stack.length - 1];
+    while (node.left) {
+      stack.push(node.left);
+      node = node.left;
+    }
+    while (stack.length !== 0) {
+      const node = stack.pop();
+      res.push(node.val);
+      if (node.right) {
+        stack.push(node.right);
+        break;
+      }
+    }
   }
+
+  return res;
 };
