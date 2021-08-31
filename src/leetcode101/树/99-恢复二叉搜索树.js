@@ -28,9 +28,9 @@ const recoverTree = function (root) {
     inOrderHelper(root.left);
     if (pre && root.val < pre.val) {
       if (mistake1) {
-        mistake2 = root;
+        mistake2 = root; // 最小值节点
       } else {
-        mistake1 = pre;
+        mistake1 = pre; // 最大值节点
         mistake2 = root;
       }
     }
@@ -38,3 +38,7 @@ const recoverTree = function (root) {
     inOrderHelper(root.right);
   }
 };
+
+/**
+ * 中序遍历，找到第一个升序错误的最大值节点，找到最后一个升序错误的最小值节点，交换顺序
+ */
